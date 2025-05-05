@@ -264,12 +264,110 @@ class UiDesignerView @JvmOverloads constructor(
      * Generates XML layout code for the current design
      */
     fun generateLayoutXml(): String {
-        // TODO: Implement XML generation
-        return "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
-                "<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" +
-                "    android:layout_width=\"match_parent\"\n" +
-                "    android:layout_height=\"match_parent\">\n" +
-                "    <!-- Generated components would go here -->\n" +
-                "</FrameLayout>"
+        val sb = StringBuilder()
+        sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n")
+        
+        // Root layout
+        sb.append("<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n")
+        sb.append("    android:layout_width=\"match_parent\"\n")
+        sb.append("    android:layout_height=\"match_parent\">\n")
+        
+        // Add all components
+        for (i in 0 until designerCanvas.childCount) {
+            val child = designerCanvas.getChildAt(i)
+            generateXmlForView(child, sb, 1)
+        }
+        
+        sb.append("</FrameLayout>")
+        
+        return sb.toString()
+    }
+    
+    /**
+     * Generates XML for a view and its children
+     */
+    private fun generateXmlForView(view: View, sb: StringBuilder, indent: Int) {
+        val indentStr = "    ".repeat(indent)
+        
+        // Get the component type
+        val componentType = when (view) {
+            is TextView -> {
+                if (view.background != null && view.background.constantState?.equals(
+                    resources.getDrawable(android.R.drawable.btn_default).constantState
+                ) == true) {
+                    ComponentType.BUTTON
+                } else if (view.background != null && view.background.constantState?.equals(
+                    resources.getDrawable(android.R.drawable.edit_text).constantState
+                ) == true) {
+                    ComponentType.EDIT_TEXT
+                } else if (view.background != null && view.background.constantState?.equals(
+                    resources.getDrawable(android.R.drawable.gallery_thumb).constantState
+                ) == true) {
+                    ComponentType.IMAGE_VIEW
+                } else {
+                    ComponentType.TEXT_VIEW
+                }
+            }
+            is LinearLayout -> ComponentType.LINEAR_LAYOUT
+            else -> null
+        }
+        
+        if (componentType != null) {
+            // Get layout params
+            val params = view.layoutParams as? FrameLayout.LayoutParams
+            
+            // Start tag
+            sb.append("$indentStr<${componentType.displayName}\n")
+            
+            // Common attributes
+            sb.append("$indentStr    android:layout_width=\"${getLayoutParamString(view.layoutParams.width)}\"\n")
+            sb.append("$indentStr    android:layout_height=\"${getLayoutParamString(view.layoutParams.height)}\"\n")
+            
+            // Position attributes
+            if (params != null) {
+                sb.append("$indentStr    android:layout_marginStart=\"${params.leftMargin}dp\"\n")
+                sb.append("$indentStr    android:layout_marginTop=\"${params.topMargin}dp\"\n")
+            }
+            
+            // Component-specific attributes
+            when (view) {
+                is TextView -> {
+                    sb.append("$indentStr    android:text=\"${view.text}\"\n")
+                    sb.append("$indentStr    android:textSize=\"${view.textSize / resources.displayMetrics.density}sp\"\n")
+                }
+                is LinearLayout -> {
+                    val orientation = if (view.orientation == LinearLayout.VERTICAL) "vertical" else "horizontal"
+                    sb.append("$indentStr    android:orientation=\"$orientation\"\n")
+                }
+            }
+            
+            // Check if the view has children
+            if (view is ViewGroup && view.childCount > 0) {
+                // Close the start tag
+                sb.append("$indentStr>\n")
+                
+                // Add children
+                for (i in 0 until view.childCount) {
+                    generateXmlForView(view.getChildAt(i), sb, indent + 1)
+                }
+                
+                // End tag
+                sb.append("$indentStr</${componentType.displayName}>\n")
+            } else {
+                // Self-closing tag
+                sb.append("$indentStr/>\n")
+            }
+        }
+    }
+    
+    /**
+     * Converts a layout parameter value to a string
+     */
+    private fun getLayoutParamString(value: Int): String {
+        return when (value) {
+            ViewGroup.LayoutParams.MATCH_PARENT -> "match_parent"
+            ViewGroup.LayoutParams.WRAP_CONTENT -> "wrap_content"
+            else -> "${value}dp"
+        }
     }
 }
