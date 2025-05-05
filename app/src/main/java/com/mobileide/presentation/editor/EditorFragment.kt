@@ -9,10 +9,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.mobileide.databinding.FragmentEditorBinding
 import com.mobileide.domain.model.File
+import com.mobileide.editor.BasicAutoCompleteProvider
+import com.mobileide.editor.CodeEditorOptimizer
 import com.mobileide.editor.SyntaxHighlighter
 import com.mobileide.presentation.main.MainViewModel
+import com.mobileide.presentation.ui.UIOptimizer
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class EditorFragment : Fragment() {
@@ -23,6 +27,12 @@ class EditorFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
     private val editorViewModel: EditorViewModel by viewModels()
     private val syntaxHighlighter = SyntaxHighlighter()
+    
+    @Inject
+    lateinit var basicAutoCompleteProvider: BasicAutoCompleteProvider
+    
+    @Inject
+    lateinit var uiOptimizer: UIOptimizer
     
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +50,19 @@ class EditorFragment : Fragment() {
         setupButtons()
         setupFileNavigation()
         observeViewModel()
+        
+        // Optimize editor UI
+        context?.let {
+            val editorOptimizer = CodeEditorOptimizer(it)
+            editorOptimizer.optimizeEditor(binding.codeEditor)
+            editorOptimizer.setupMobileKeyboardHelpers(binding.codeEditor)
+            editorOptimizer.setupCodeSnippets(binding.codeEditor)
+        }
+        
+        // Optimize editor UI layout
+        activity?.let {
+            uiOptimizer.optimizeEditorUI(it)
+        }
     }
     
     private fun setupEditor() {
@@ -51,6 +74,9 @@ class EditorFragment : Fragment() {
             setOnTextChangedListener { text ->
                 editorViewModel.updateCurrentFile(text)
             }
+            
+            // Set up auto-completion
+            basicAutoCompleteProvider.setupAutoComplete(this)
         }
     }
     

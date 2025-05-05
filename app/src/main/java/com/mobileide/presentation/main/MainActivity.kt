@@ -15,7 +15,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.mobileide.R
 import com.mobileide.databinding.ActivityMainBinding
+import com.mobileide.editor.CodeEditorOptimizer
+import com.mobileide.presentation.ui.UIOptimizer
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -26,6 +29,9 @@ class MainActivity : AppCompatActivity() {
     
     private val viewModel: MainViewModel by viewModels()
     
+    @Inject
+    lateinit var uiOptimizer: UIOptimizer
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -34,6 +40,9 @@ class MainActivity : AppCompatActivity() {
         setupToolbar()
         setupNavigation()
         observeViewModel()
+        
+        // Optimize UI for mobile devices
+        uiOptimizer.optimizeUIForMobileDevices(this)
     }
     
     private fun setupToolbar() {
