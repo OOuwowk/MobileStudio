@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        #editor {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="editor"></div>
+    
+    <!-- Load Ace Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-language_tools.js"></script>
+    
+    <script>
+        // Initialize Ace Editor
+        ace.require("ace/ext/language_tools");
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/java");
+        editor.setOptions({
+            enableBasicAutocompletion: true,
+            enableSnippets: true,
+            enableLiveAutocompletion: true,
+            showPrintMargin: false,
+            fontSize: "14px"
+        });
+        
+        // Set up custom auto-completer
+        var androidCompleter = {
+            getCompletions: function(editor, session, pos, prefix, callback) {
+                if (prefix.length === 0) {
+                    callback(null, []);
+                    return;
+                }
+                
+                try {
+                    // Request suggestions from Android
+                    var suggestions = JSON.parse(Android.requestAutoComplete(prefix, pos.column));
+                    callback(null, suggestions);
+                } catch (e) {
+                    Android.log("Error in auto-complete: " + e.message);
+                    callback(null, []);
+                }
+            }
+        };
+        
+        // Add custom completer
+        editor.completers.push(androidCompleter);
+        
+        // Set up change event
+        editor.session.on('change', function() {
+            try {
+                Android.onTextChanged(editor.getValue());
+            } catch (e) {
+                console.error("Error sending text to Android", e);
+            }
+        });
+        
+        // Set initial content
+        editor.setValue("// Start coding here\n", -1);
+    </script>
+</body>
+</html>

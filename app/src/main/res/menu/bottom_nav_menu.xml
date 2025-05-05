@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/projectListFragment"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="@string/nav_projects" />
+    <item
+        android:id="@+id/editorFragment"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/nav_editor" />
+    <item
+        android:id="@+id/designerFragment"
+        android:icon="@android:drawable/ic_menu_gallery"
+        android:title="@string/nav_designer" />
+    <item
+        android:id="@+id/debuggerFragment"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/nav_debugger" />
+</menu>

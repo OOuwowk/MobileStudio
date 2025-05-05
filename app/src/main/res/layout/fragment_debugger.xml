@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.debugger.DebuggerFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/debugger_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_start_debug"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start_debugging"
+                    android:textColor="@color/icons"
+                    app:icon="@android:drawable/ic_media_play"
+                    app:iconTint="@color/icons" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_stop_debug"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="@string/stop_debugging"
+                    android:textColor="@color/icons"
+                    app:icon="@android:drawable/ic_media_pause"
+                    app:iconTint="@color/icons" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_step_over"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="@string/step_over"
+                    android:textColor="@color/icons"
+                    app:icon="@android:drawable/ic_media_next"
+                    app:iconTint="@color/icons" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_step_into"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="@string/step_into"
+                    android:textColor="@color/icons"
+                    app:icon="@android:drawable/arrow_down_float"
+                    app:iconTint="@color/icons" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_step_out"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="@string/step_out"
+                    android:textColor="@color/icons"
+                    app:icon="@android:drawable/arrow_up_float"
+                    app:iconTint="@color/icons" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_resume"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="@string/resume"
+                    android:textColor="@color/icons"
+                    app:icon="@android:drawable/ic_media_ff"
+                    app:iconTint="@color/icons" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/debugger_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/debugger_app_bar">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/variables" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/breakpoints" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/debugger_view_pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/debug_console"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/debugger_tabs" />
+
+    <EditText
+        android:id="@+id/debug_console"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:background="@color/editor_background"
+        android:fontFamily="monospace"
+        android:gravity="top|start"
+        android:hint="Debug Console"
+        android:inputType="textMultiLine"
+        android:padding="8dp"
+        android:textColor="@color/editor_text"
+        android:textColorHint="@color/secondary_text"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="designer_components">Components</string>
+    <string name="designer_properties">Properties</string>
+    <string name="designer_add_component">Add Component</string>
+    <string name="designer_remove_component">Remove Component</string>
+    <string name="designer_component_text_view">TextView</string>
+    <string name="designer_component_button">Button</string>
+    <string name="designer_component_edit_text">EditText</string>
+    <string name="designer_component_image_view">ImageView</string>
+    <string name="designer_component_linear_layout">LinearLayout</string>
+</resources>

@@ -1,0 +1,6 @@
+rootProject.name = "MobileStudio"
+include ':app'
+include ':compiler-module'
+include ':editor-module'
+include ':designer-module'
+include ':debugger-module'

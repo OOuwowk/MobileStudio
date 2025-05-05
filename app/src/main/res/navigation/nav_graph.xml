@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/projectListFragment">
+
+    <fragment
+        android:id="@+id/projectListFragment"
+        android:name="com.mobileide.presentation.projects.ProjectListFragment"
+        android:label="@string/projects"
+        tools:layout="@layout/fragment_project_list">
+        <action
+            android:id="@+id/action_projectListFragment_to_editorFragment"
+            app:destination="@id/editorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editorFragment"
+        android:name="com.mobileide.presentation.editor.EditorFragment"
+        android:label="@string/editor"
+        tools:layout="@layout/fragment_editor">
+        <action
+            android:id="@+id/action_editorFragment_to_designerFragment"
+            app:destination="@id/designerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/designerFragment"
+        android:name="com.mobileide.presentation.designer.DesignerFragment"
+        android:label="@string/designer"
+        tools:layout="@layout/fragment_designer">
+        <action
+            android:id="@+id/action_designerFragment_to_editorFragment"
+            app:destination="@id/editorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/debuggerFragment"
+        android:name="com.mobileide.presentation.debugger.DebuggerFragment"
+        android:label="@string/debugger"
+        tools:layout="@layout/fragment_debugger" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.mobileide.presentation.settings.SettingsFragment"
+        android:label="@string/action_settings"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>

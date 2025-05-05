@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mobile IDE</string>
+    
+    <!-- Main Menu -->
+    <string name="action_build">Build</string>
+    <string name="action_run">Run</string>
+    <string name="action_debug">Debug</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- Project List -->
+    <string name="projects">Projects</string>
+    <string name="new_project">New Project</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_projects">No projects yet. Create a new one!</string>
+    
+    <!-- Project Creation -->
+    <string name="project_name">Project Name</string>
+    <string name="package_name">Package Name</string>
+    <string name="template">Template</string>
+    
+    <!-- Editor -->
+    <string name="editor">Editor</string>
+    <string name="save">Save</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
+    <string name="find">Find</string>
+    <string name="replace">Replace</string>
+    
+    <!-- Designer -->
+    <string name="designer">Designer</string>
+    <string name="preview">Preview</string>
+    <string name="components">Components</string>
+    <string name="properties">Properties</string>
+    
+    <!-- Debugger -->
+    <string name="debugger">Debugger</string>
+    <string name="start_debugging">Start Debugging</string>
+    <string name="stop_debugging">Stop Debugging</string>
+    <string name="step_over">Step Over</string>
+    <string name="step_into">Step Into</string>
+    <string name="step_out">Step Out</string>
+    <string name="resume">Resume</string>
+    <string name="variables">Variables</string>
+    <string name="breakpoints">Breakpoints</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="nav_projects">Projects</string>
+    <string name="nav_editor">Editor</string>
+    <string name="nav_designer">Designer</string>
+    <string name="nav_debugger">Debugger</string>
+</resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <!-- Component Palette -->
+    <LinearLayout
+        android:id="@+id/component_palette"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#F5F5F5"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Components"
+            android:textStyle="bold" />
+
+        <!-- Component items will be added here programmatically -->
+
+    </LinearLayout>
+
+    <!-- Designer Canvas -->
+    <FrameLayout
+        android:id="@+id/designer_canvas"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:background="#FFFFFF">
+
+        <!-- Components will be added here programmatically -->
+
+    </FrameLayout>
+
+    <!-- Property Panel -->
+    <LinearLayout
+        android:id="@+id/property_panel"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#F5F5F5"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Properties"
+            android:textStyle="bold" />
+
+        <!-- Property fields will be added here programmatically -->
+
+    </LinearLayout>
+
+</LinearLayout>
