@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- عام -->
+    <string name="app_name">AIDE</string>
+    
+    <!-- مصمم الواجهات -->
+    <string name="designer">مصمم الواجهات</string>
+    <string name="components">العناصر</string>
+    <string name="properties">الخصائص</string>
+    <string name="component_icon">أيقونة العنصر</string>
+    <string name="preview">معاينة</string>
+    <string name="preview_error">خطأ في المعاينة: %1$s</string>
+    <string name="preview_placeholder">معاينة التصميم</string>
+    <string name="generate_xml">توليد XML</string>
+    <string name="load_xml">تحميل XML</string>
+    <string name="delete_component">حذف العنصر</string>
+    <string name="xml_generated">تم توليد XML بنجاح</string>
+    <string name="xml_copied">تم نسخ XML إلى الحافظة</string>
+    <string name="no_component_selected">لم يتم تحديد أي عنصر</string>
+    <string name="component_deleted">تم حذف العنصر</string>
+    <string name="enter_xml">أدخل كود XML</string>
+    <string name="ok">موافق</string>
+    <string name="cancel">إلغاء</string>
+</resources>
