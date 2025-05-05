@@ -8,7 +8,7 @@ import com.mobileide.data.local.ProjectDao
 import com.mobileide.data.repository.ProjectRepositoryImpl
 import com.mobileide.domain.repository.ProjectRepository
 import com.mobileide.domain.service.ProjectManagerOptimizer
-import com.mobileide.editor.BasicAutoCompleteProvider
+import com.mobileide.editor.AutoCompleteProvider
 import com.mobileide.presentation.ui.UIOptimizer
 import dagger.Module
 import dagger.Provides
@@ -47,8 +47,8 @@ object AppModule {
     
     @Provides
     @Singleton
-    fun provideBasicAutoCompleteProvider(@ApplicationContext context: Context): BasicAutoCompleteProvider {
-        return BasicAutoCompleteProvider(context)
+    fun provideAutoCompleteProvider(@ApplicationContext context: Context): AutoCompleteProvider {
+        return AutoCompleteProvider(context)
     }
     
     @Provides

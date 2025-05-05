@@ -3,7 +3,7 @@ package com.mobileide
 import android.app.Application
 import com.mobileide.compiler.CompilerOptimizer
 import com.mobileide.domain.service.ProjectManagerOptimizer
-import com.mobileide.editor.BasicAutoCompleteProvider
+import com.mobileide.editor.AutoCompleteProvider
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class MobileIdeApplication : Application() {
     lateinit var compilerOptimizer: CompilerOptimizer
     
     @Inject
-    lateinit var basicAutoCompleteProvider: BasicAutoCompleteProvider
+    lateinit var autoCompleteProvider: AutoCompleteProvider
     
     override fun onCreate() {
         super.onCreate()
@@ -48,7 +48,7 @@ class MobileIdeApplication : Application() {
                 compilerOptimizer.optimizeApkPackaging()
                 
                 // Set up auto-completion
-                basicAutoCompleteProvider.createCodeSnippets()
+                autoCompleteProvider.createCodeSnippets()
                 
                 Timber.d("All optimizations completed")
             } catch (e: Exception) {

@@ -80,6 +80,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
         
+        viewModel.errorEvent.observe(this) { event ->
+            event.getContentIfNotHandled()?.let { errorMessage ->
+                Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_LONG).show()
+            }
+        }
+        
         viewModel.buildStatus.observe(this) { status ->
             when (status) {
                 is BuildStatus.Building -> {

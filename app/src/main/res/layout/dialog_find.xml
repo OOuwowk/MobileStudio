@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/matchCase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/match_case" />
+
+    <CheckBox
+        android:id="@+id/wholeWord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/whole_word" />
+
+    <CheckBox
+        android:id="@+id/regex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/use_regex" />
+
+</LinearLayout>

@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.mobileide.R
 import com.mobileide.databinding.FragmentEditorBinding
+import com.mobileide.databinding.DialogFindBinding
 import com.mobileide.domain.model.File
-import com.mobileide.editor.BasicAutoCompleteProvider
+import com.mobileide.editor.AutoCompleteProvider
 import com.mobileide.editor.CodeEditorOptimizer
 import com.mobileide.editor.SyntaxHighlighter
 import com.mobileide.presentation.main.MainViewModel
@@ -29,7 +33,7 @@ class EditorFragment : Fragment() {
     private val syntaxHighlighter = SyntaxHighlighter()
     
     @Inject
-    lateinit var basicAutoCompleteProvider: BasicAutoCompleteProvider
+    lateinit var autoCompleteProvider: AutoCompleteProvider
     
     @Inject
     lateinit var uiOptimizer: UIOptimizer
@@ -76,7 +80,7 @@ class EditorFragment : Fragment() {
             }
             
             // Set up auto-completion
-            basicAutoCompleteProvider.setupAutoComplete(this)
+            autoCompleteProvider.setupAutoComplete(this)
         }
     }
     
@@ -139,9 +143,31 @@ class EditorFragment : Fragment() {
     }
     
     private fun showFindDialog() {
-        // TODO: Implement find dialog
-        // For now, just use a simple implementation
-        binding.codeEditor.find("", false, false, false)
+        val dialogBinding = DialogFindBinding.inflate(layoutInflater)
+        
+        val dialog = AlertDialog.Builder(requireContext())
+            .setTitle(R.string.find_text)
+            .setView(dialogBinding.root)
+            .setPositiveButton(R.string.find) { _, _ ->
+                val searchText = dialogBinding.searchText.text.toString()
+                val matchCase = dialogBinding.matchCase.isChecked
+                val wholeWord = dialogBinding.wholeWord.isChecked
+                val regex = dialogBinding.regex.isChecked
+                
+                binding.codeEditor.find(searchText, matchCase, wholeWord, regex)
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .create()
+            
+        dialogBinding.searchText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+        
+        dialog.show()
     }
     
     override fun onDestroyView() {

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mobileide.domain.model.Project
 import com.mobileide.domain.service.ProjectManager
+import com.mobileide.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -19,6 +20,9 @@ class MainViewModel @Inject constructor(
     private val _currentProject = MutableLiveData<Project?>()
     val currentProject: LiveData<Project?> = _currentProject
     
+    private val _errorEvent = MutableLiveData<Event<String>>()
+    val errorEvent: LiveData<Event<String>> = _errorEvent
+    
     private val _buildStatus = MutableLiveData<BuildStatus>()
     val buildStatus: LiveData<BuildStatus> = _buildStatus
     
@@ -30,7 +34,7 @@ class MainViewModel @Inject constructor(
                 }
                 .onFailure { error ->
                     Timber.e(error, "Failed to open project")
-                    // TODO: Show error message
+                    _errorEvent.value = Event("Failed to open project: ${error.message}")
                 }
         }
     }

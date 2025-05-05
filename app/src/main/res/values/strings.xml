@@ -27,6 +27,11 @@
     <string name="redo">Redo</string>
     <string name="find">Find</string>
     <string name="replace">Replace</string>
+    <string name="find_text">Find Text</string>
+    <string name="search_text">Search Text</string>
+    <string name="match_case">Match Case</string>
+    <string name="whole_word">Whole Word</string>
+    <string name="use_regex">Use Regular Expression</string>
     
     <!-- Designer -->
     <string name="designer">Designer</string>
