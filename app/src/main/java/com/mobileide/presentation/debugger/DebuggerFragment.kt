@@ -200,9 +200,49 @@ class DebuggerFragment : Fragment() {
     }
     
     private fun showAddBreakpointDialog() {
-        // TODO: Implement add breakpoint dialog
-        // For now, just add a hardcoded breakpoint
-        debuggerViewModel.addBreakpoint("MainActivity.java", 42)
+        val dialogView = LayoutInflater.from(requireContext()).inflate(
+            com.mobileide.R.layout.dialog_add_breakpoint, null
+        )
+        
+        val etFile = dialogView.findViewById<android.widget.EditText>(com.mobileide.R.id.et_file)
+        val etLine = dialogView.findViewById<android.widget.EditText>(com.mobileide.R.id.et_line)
+        
+        // Pre-fill with current file if available
+        mainViewModel.currentFile.value?.let { file ->
+            etFile.setText(file.name)
+        }
+        
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setTitle("Add Breakpoint")
+            .setView(dialogView)
+            .setPositiveButton("Add") { _, _ ->
+                val file = etFile.text.toString()
+                val lineStr = etLine.text.toString()
+                
+                if (file.isNotEmpty() && lineStr.isNotEmpty()) {
+                    try {
+                        val line = lineStr.toInt()
+                        debuggerViewModel.addBreakpoint(file, line)
+                    } catch (e: NumberFormatException) {
+                        Timber.e("Invalid line number: $lineStr")
+                        showErrorMessage("Invalid line number")
+                    }
+                } else {
+                    showErrorMessage("File and line number are required")
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .create()
+        
+        dialog.show()
+    }
+    
+    private fun showErrorMessage(message: String) {
+        androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setTitle("Error")
+            .setMessage(message)
+            .setPositiveButton("OK", null)
+            .show()
     }
     
     override fun onDestroyView() {
